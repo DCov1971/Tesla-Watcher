@@ -1,18 +1,23 @@
 name: Tesla Watcher
 
 on:
-schedule:
-- cron: "*/10 * * * *"
-workflow_dispatch:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
 
 jobs:
-run-script:
-runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v3
-- name: Setup Python
-uses: actions/setup-python@v4
-with:
-python-version: '3.11'
-- run: pip install requests
-- run: python watcher.py
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run watcher
+        run: python watcher.py
